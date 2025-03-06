@@ -36,4 +36,7 @@ public class Employee {
 	private double salary;
 	@NotNull(message = "* Status is Required")
 	private boolean status;
+	
+	private int otp;
+	private boolean verfied;
 }
