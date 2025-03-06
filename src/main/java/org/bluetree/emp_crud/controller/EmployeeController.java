@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
@@ -28,7 +29,7 @@ public class EmployeeController {
 	}
 
 	@PostMapping("/add-record")
-	public String addRecord(@Valid Employee employee, BindingResult result) {
-		return service.addRecord(employee, result);
+	public String addRecord(@Valid Employee employee, BindingResult result, HttpSession session) {
+		return service.addRecord(employee, result, session);
 	}
 }

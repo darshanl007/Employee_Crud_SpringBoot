@@ -8,6 +8,10 @@
 </head>
 <body>
     <div class="container mt-5">
+        <div th:if="${session.success}" class="alert alert-success text-center" role="alert" th:text="${session.success}"></div>
+        <div th:if="${session.failure}" class="alert alert-danger text-center" role="alert" th:text="${session.failure}"></div>
+        <th:block th:text="${@messageRemover.remove()}"></th:block>
+
         <h2 class="text-center">Add Employee</h2>
         <form th:action="@{/add-record}" th:object="${employee}" method="post">
             
@@ -48,5 +52,23 @@
             <a href="/" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
+    
+    <script>
+        setTimeout(() => {
+            const successMessage = document.getElementById("successMessage");
+            const failureMessage = document.getElementById("failureMessage");
+
+            if (successMessage) {
+                successMessage.style.opacity = "0";
+                setTimeout(() => successMessage.remove(), 500);
+            }
+
+            if (failureMessage) {
+                failureMessage.style.opacity = "0";
+                setTimeout(() => failureMessage.remove(), 500);
+            }
+        }, 3000);
+    </script>
+    
 </body>
 </html>

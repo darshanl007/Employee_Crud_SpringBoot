@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Service
@@ -20,7 +21,7 @@ public class EmployeeService {
 		return "employee-form.html";
 	}
 
-	public String addRecord(@Valid Employee employee, BindingResult result) {
+	public String addRecord(@Valid Employee employee, BindingResult result, HttpSession session) {
 		if (employeeRepository.existsByEmail(employee.getEmail())) {
 			result.rejectValue("email", "error.email", "* Email Should be Unique");
 		}
@@ -28,7 +29,8 @@ public class EmployeeService {
 			return "employee-form.html";
 		} else {
 			employeeRepository.save(employee);
-			return "redirect:https://www.instagram.com";
+			session.setAttribute("success", "Employee Record Added Success");
+			return "home.html";
 		}
 	}
 
