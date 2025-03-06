@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -71,6 +73,25 @@ public class EmployeeService {
 	public String fetchRecords(ModelMap map) {
 		map.put("employees", employeeRepository.findAll());
 		return "employee-records.html";
+	}
+
+	public String deleteRecord(@RequestParam int id, ModelMap map, HttpSession session) {
+		employeeRepository.deleteById(id);
+		session.setAttribute("success", "Employee Record Deleted Success");
+		return "home.html";
+	}
+
+	public String editRecord(int id, ModelMap map) {
+		Employee employee = employeeRepository.findById(id).orElseThrow();
+		map.put("employee", employee);
+		map.put("edit", "edit");
+		return "employee-edit-record.html";
+	}
+
+	public String updateRecord(Employee employee, ModelMap map, HttpSession session) {
+		employeeRepository.save(employee);
+		session.setAttribute("success", "Employee Record Updated Success");
+		return "home.html";
 	}
 
 }

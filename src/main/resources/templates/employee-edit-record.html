@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee - Edit Record</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div th:if="${session.success}" class="alert alert-success text-center" role="alert" th:text="${session.success}"></div>
+        <div th:if="${session.failure}" class="alert alert-danger text-center" role="alert" th:text="${session.failure}"></div>
+        <th:block th:text="${@messageRemover.remove()}"></th:block>
+
+        <h2 class="text-center">Edit Employee</h2>
+        <form th:action="@{/update-record}" th:object="${employee}" method="post">
+            <input type="hidden" th:field="*{id}">
+            
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" class="form-control" th:field="*{name}" required>
+                <small class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+            </div>
+   
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" class="form-control" th:field="*{email}" required>
+                <small class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+            </div>
+
+            <div class="form-group">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" class="form-control" th:field="*{dob}" required>
+                <small class="text-danger" th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}"></small>
+            </div>
+
+            <div class="form-group">
+                <label for="salary">Salary:</label>
+                <input type="number" id="salary" name="salary" class="form-control" th:field="*{salary}" step="0.01" required>
+                <small class="text-danger" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></small>
+            </div>
+
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select id="status" name="status" class="form-control" th:field="*{status}">
+                    <option th:value="true" th:text="Active"></option>
+                    <option th:value="false" th:text="Inactive"></option>
+                </select>
+                <small class="text-danger" th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></small>
+            </div>
+
+            <button type="submit" class="btn btn-success">Update</button>
+            <a href="/" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+    
+    <script>
+        setTimeout(() => {
+            document.querySelectorAll('.alert').forEach(alert => {
+                alert.style.opacity = "0";
+                setTimeout(() => alert.remove(), 500);
+            });
+        }, 3000);
+    </script>
+</body>
+</html>

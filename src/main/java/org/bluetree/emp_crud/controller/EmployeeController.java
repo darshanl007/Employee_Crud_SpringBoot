@@ -1,4 +1,4 @@
-	package org.bluetree.emp_crud.controller;
+package org.bluetree.emp_crud.controller;
 
 import org.bluetree.emp_crud.dto.Employee;
 import org.bluetree.emp_crud.service.EmployeeService;
@@ -37,7 +37,7 @@ public class EmployeeController {
 
 	@GetMapping("/otp/{id}")
 	public String loadOtp(@PathVariable int id, ModelMap map) {
-		map.put("id",id);
+		map.put("id", id);
 		return "employee-otp.html";
 	}
 
@@ -50,11 +50,25 @@ public class EmployeeController {
 	public String resendOtp(@PathVariable int id, HttpSession session) {
 		return service.resendOtp(id, session);
 	}
-	
+
 	@GetMapping("/employee-records")
 	public String fetchRecords(ModelMap map) {
 		return service.fetchRecords(map);
 	}
 
+	@GetMapping("/delete-record")
+	public String deleteRecord(@RequestParam int id, ModelMap map, HttpSession session) {
+		return service.deleteRecord(id, map, session);
+	}
+
+	@GetMapping("/edit-record")
+	public String editRecord(@RequestParam int id, ModelMap map) {
+		return service.editRecord(id, map);
+	}
+
+	@PostMapping("/update-record")
+	public String updateRecord(Employee employee, ModelMap map, HttpSession session) {
+		return service.updateRecord(employee, map, session);
+	}
 
 }
