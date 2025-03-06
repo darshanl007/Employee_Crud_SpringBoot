@@ -68,4 +68,9 @@ public class EmployeeService {
 		return "redirect:/otp/" + employee.getId();
 	}
 
+	public String fetchRecords(ModelMap map) {
+		map.put("employees", employeeRepository.findAll());
+		return "employee-records.html";
+	}
+
 }

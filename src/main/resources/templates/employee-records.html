@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Employee List</h2>
+        <a href="/add-record" class="btn btn-primary mb-3">Add Employee</a>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Age</th>
+                    <th>Salary</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <th:block th:each="employee : ${employees}">
+                    <tr>
+                        <td th:text="${employee.id}"></td>
+                        <td th:text="${employee.name}"></td>
+                        <td th:text="${employee.email}"></td>
+                        <td th:text="${employee.age}"></td>
+                        <td th:text="${employee.salary}"></td>
+                        <td th:text="${employee.status ? 'Active' : 'Inactive'}"></td>
+                        <td>
+                            <a th:href="'/edit-record?id='+${employee.id}" class="btn btn-warning">Edit</a>
+                            <a th:href="'/delete-record?id='+${employee.id}" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

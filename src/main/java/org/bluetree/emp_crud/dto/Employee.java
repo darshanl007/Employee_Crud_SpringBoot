@@ -1,12 +1,14 @@
 package org.bluetree.emp_crud.dto;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -39,4 +41,11 @@ public class Employee {
 	
 	private int otp;
 	private boolean verfied;
+	
+	@Transient
+	private int age;
+
+	public int getAge() {
+		return Period.between(this.dob, LocalDate.now()).getYears();
+	}
 }

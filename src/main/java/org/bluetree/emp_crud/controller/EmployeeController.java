@@ -37,7 +37,7 @@ public class EmployeeController {
 
 	@GetMapping("/otp/{id}")
 	public String loadOtp(@PathVariable int id, ModelMap map) {
-		map.put("employee.id",id);
+		map.put("id",id);
 		return "employee-otp.html";
 	}
 
@@ -50,5 +50,11 @@ public class EmployeeController {
 	public String resendOtp(@PathVariable int id, HttpSession session) {
 		return service.resendOtp(id, session);
 	}
+	
+	@GetMapping("/employee-records")
+	public String fetchRecords(ModelMap map) {
+		return service.fetchRecords(map);
+	}
+
 
 }
