@@ -9,7 +9,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
         body {
             background-color: #f4f4f4;
@@ -17,6 +17,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            padding: 10px;
         }
         .container {
             background: white;
@@ -24,7 +25,13 @@
             border-radius: 8px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             text-align: center;
-            width: 350px;
+            width: 100%;
+            max-width: 400px;
+        }
+        h2 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #333;
         }
         .message-container {
             margin-bottom: 15px;
@@ -49,38 +56,58 @@
             font-weight: bold;
             display: block;
             margin-top: 10px;
+            font-size: 16px;
+            text-align: left;
         }
         input {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             margin-top: 5px;
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 16px;
+            text-align: center;
         }
         .btn {
             background: #007BFF;
             color: white;
             border: none;
-            padding: 10px;
+            padding: 12px;
             width: 100%;
             margin-top: 15px;
             cursor: pointer;
             font-size: 16px;
+            font-weight: bold;
             border-radius: 5px;
+            transition: 0.3s;
         }
         .btn:hover {
             background: #0056b3;
+            transform: scale(1.05);
         }
         .resend-link {
             display: block;
             margin-top: 15px;
             color: #007BFF;
             text-decoration: none;
+            font-size: 14px;
             font-weight: bold;
         }
         .resend-link:hover {
             text-decoration: underline;
+        }
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 20px;
+            }
+            .btn {
+                font-size: 14px;
+                padding: 10px;
+            }
+            input {
+                font-size: 14px;
+                padding: 8px;
+            }
         }
     </style>
 </head>
