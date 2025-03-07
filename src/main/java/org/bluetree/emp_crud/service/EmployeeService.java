@@ -74,7 +74,6 @@ public class EmployeeService {
 	}
 
 	public String fetchRecords(HttpSession session, ModelMap map) {
-		Employee employee = (Employee) session.getAttribute("employee");
 		List<Employee> employees = employeeRepository.findAll();
 		if (employees.isEmpty()) {
 			session.setAttribute("failure", "No Employee Record Found");
