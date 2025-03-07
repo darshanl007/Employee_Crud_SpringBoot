@@ -52,8 +52,8 @@ public class EmployeeController {
 	}
 
 	@GetMapping("/employee-records")
-	public String fetchRecords(ModelMap map) {
-		return service.fetchRecords(map);
+	public String fetchRecords(HttpSession session, ModelMap map) {
+		return service.fetchRecords(session, map);
 	}
 
 	@GetMapping("/delete-record")

@@ -29,6 +29,11 @@
 </head>
 <body>
     <div class="container mt-5">
+    <div id="messageBox">
+            <div id="successMessage" th:if="${session.success}" class="alert alert-success text-center" role="alert" th:text="${session.success}"></div>
+            <div id="failureMessage" th:if="${session.failure}" class="alert alert-danger text-center" role="alert" th:text="${session.failure}"></div>
+        </div>
+        
         <h2 class="mb-4 text-center">Employee List</h2>
         <div class="text-center">
             <a href="/add-record" class="btn btn-primary mb-3">Add Employee</a>
@@ -66,5 +71,14 @@
             </table>
         </div>
     </div>
+     <script>
+        setTimeout(() => {
+            const messageBox = document.getElementById("messageBox");
+            if (messageBox) {
+                messageBox.style.opacity = "0";
+                setTimeout(() => messageBox.remove(), 500);
+            }
+        }, 3000);
+    </script>
 </body>
 </html>

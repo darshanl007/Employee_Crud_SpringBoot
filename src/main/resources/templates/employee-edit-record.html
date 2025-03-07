@@ -75,12 +75,6 @@
 </head>
 <body>
     <div class="container mt-4">
-        <div id="messageBox">
-            <div id="successMessage" th:if="${session.success}" class="alert alert-success text-center" role="alert" th:text="${session.success}"></div>
-            <div id="failureMessage" th:if="${session.failure}" class="alert alert-danger text-center" role="alert" th:text="${session.failure}"></div>
-        </div>
-
-        <th:block th:text="${@messageRemover.remove()}"></th:block>
 
         <h2 class="text-center">Edit Employee</h2>
         <form th:action="@{/update-record}" th:object="${employee}" method="post">
@@ -123,14 +117,5 @@
             <a href="/" class="btn btn-secondary btn-block">Cancel</a>
         </form>
     </div>
-    
-    <script>
-        setTimeout(() => {
-            document.querySelectorAll('.alert').forEach(alert => {
-                alert.style.opacity = "0";
-                setTimeout(() => alert.remove(), 500);
-            });
-        }, 3000);
-    </script>
 </body>
 </html>

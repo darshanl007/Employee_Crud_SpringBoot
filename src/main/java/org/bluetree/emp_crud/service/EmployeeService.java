@@ -1,5 +1,6 @@
 package org.bluetree.emp_crud.service;
 
+import java.util.List;
 import java.util.Random;
 
 import org.bluetree.emp_crud.dto.Employee;
@@ -42,6 +43,7 @@ public class EmployeeService {
 			emailSender.send(employee);
 			System.err.println(employee.getOtp());
 			session.setAttribute("success", "OTP Sent Successfully");
+			session.setAttribute("id", employee.getId());
 			return "employee-otp.html";
 		}
 	}
@@ -51,10 +53,11 @@ public class EmployeeService {
 		if (employee.getOtp() == otp) {
 			employee.setVerfied(true);
 			employeeRepository.save(employee);
-			session.setAttribute("success", "Employee Email Verified Success");
+			session.setAttribute("success", "Employee Email Verified and Record Added To Database Successfully");
 			return "home.html";
 		} else {
 			session.setAttribute("failure", "OTP Missmatch");
+			session.setAttribute("id", employee.getId());
 			return "redirect:/otp/" + employee.getId();
 		}
 	}
@@ -66,18 +69,26 @@ public class EmployeeService {
 		employeeRepository.save(employee);
 		System.err.println(employee.getOtp());
 		emailSender.send(employee);
-		session.setAttribute("success", "OTP Resent Success");
+		session.setAttribute("success", "OTP Resent Successfully");
 		return "redirect:/otp/" + employee.getId();
 	}
 
-	public String fetchRecords(ModelMap map) {
-		map.put("employees", employeeRepository.findAll());
-		return "employee-records.html";
+	public String fetchRecords(HttpSession session, ModelMap map) {
+		Employee employee = (Employee) session.getAttribute("employee");
+		List<Employee> employees = employeeRepository.findAll();
+		if (employees.isEmpty()) {
+			session.setAttribute("failure", "No Employee Record Found");
+			return "employee-records.html";
+		} else {
+			session.setAttribute("success", "Employee Records");
+			map.put("employees", employees);
+			return "employee-records.html";
+		}
 	}
 
 	public String deleteRecord(@RequestParam int id, ModelMap map, HttpSession session) {
 		employeeRepository.deleteById(id);
-		session.setAttribute("success", "Employee Record Deleted Success");
+		session.setAttribute("success", "Employee Record Deleted Successfully");
 		return "home.html";
 	}
 
@@ -90,7 +101,7 @@ public class EmployeeService {
 
 	public String updateRecord(Employee employee, ModelMap map, HttpSession session) {
 		employeeRepository.save(employee);
-		session.setAttribute("success", "Employee Record Updated Success");
+		session.setAttribute("success", "Employee Record Updated Successfully");
 		return "home.html";
 	}
 
